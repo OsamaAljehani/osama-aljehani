@@ -1,4 +1,4 @@
-baseURL = 'http://example.org/'
+baseURL = 'https://osamaaljehani.github.io/osama-aljehani/'
 copyright = "{year}" # To make 2007 - 2022. Just add before {year} example: 2007 - {year}
 languageCode = 'ar'
 languagedirection = 'rtl'
