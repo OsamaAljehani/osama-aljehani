@@ -5,7 +5,7 @@ languagedirection = 'rtl'
 theme = 'lowkey'
 title = 'أسامة الجهني'
 enableRobotsTXT = true
-themesDir = "themes"
+# themesDir = "themes"
 
 # List Config
 summaryLength= 15
