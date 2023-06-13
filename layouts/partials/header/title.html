@@ -1,0 +1,7 @@
+<a href="{{ .Site.BaseURL }}">
+    {{ if .IsHome }}
+    <h1 class="sm:text-left text-4xl font-extrabold text-gray-800  text-right" style="text-align: right;">{{ .Site.Title }}</h1>
+    {{ else }}
+    <h3 class="sm:text-left text-4xl font-extrabold text-gray-800 " style="text-align: right;">{{ .Site.Title }}</h3>
+    {{ end }}
+</a>
