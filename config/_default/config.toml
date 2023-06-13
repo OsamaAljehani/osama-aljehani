@@ -11,6 +11,11 @@ enableRobotsTXT = true
 summaryLength= 15
 paginate = 5
 
+[module]
+[[module.imports]]
+  path = 'github.com/nixentric/Lowkey-Hugo-Theme'
+
+
 [markup.highlight]
       codeFences = false
       guessSyntax = false
