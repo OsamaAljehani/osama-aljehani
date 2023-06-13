@@ -56,7 +56,7 @@ jobs:
           HUGO_ENVIRONMENT: production
           HUGO_ENV: production
         run: |
-          wget -P /themes/lowkey https://github.com/nixentric/Lowkey-Hugo-Theme.git &&
+          git clone https://github.com/nixentric/Lowkey-Hugo-Theme.git themes/lowkey &&
           ls themes &&
           hugo \
             --gc \
