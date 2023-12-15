@@ -1,4 +1,4 @@
 ---
 title: "المنشورات"
-header: "آخر كتاباتي" # Optional
+header: "كل كتاباتي" # Optional
 ---

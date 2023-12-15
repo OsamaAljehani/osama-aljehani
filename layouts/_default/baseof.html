@@ -1,13 +1,20 @@
 <!DOCTYPE html>
-<html lang="{{ .Site.LanguageCode | default `ar` }}" class="scroll-smooth">
+<html lang="{{ .Site.LanguageCode | default `ar` }}" class="scroll-smooth dark">
     <head>
-    {{- partial "head.html" . -}}
+    {{- partial "head/index" . -}}
     </head>
-    <body class="max-w-screen-md px-10 mx-auto"  dir="rtl">
-        {{- partial "header.html" . -}}
-        <div id="content" class="text-justify">
-        {{- block "main" . }}{{- end }}
+
+    <body class="max-w-screen-md mx-auto" dir="rtl">
+        <div class="header">
+          {{ partial "header/index" . }}
+          {{ partial "header/theme-button" . }}
         </div>
-        {{- partial "footer.html" . -}}
-    </body>
+      
+        <main id="content">
+          {{- block "main" . -}}
+          {{- end }}
+        </main>
+    
+        {{- partial "footer/index" . -}}
+      </body>
 </html>
