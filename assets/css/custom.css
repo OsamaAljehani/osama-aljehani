@@ -1,0 +1,17 @@
+/* Custom Background Override - Pure Black */
+* {
+  --bg-primary: #000000 !important;
+  --bg-secondary: #000000 !important;
+  --background: #000000 !important;
+}
+
+html,
+body {
+  background-color: #000000 !important;
+  background: #000000 !important;
+}
+
+:root {
+  --background-color: #000000 !important;
+  color-scheme: dark !important;
+}
