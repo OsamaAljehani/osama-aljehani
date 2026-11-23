@@ -2,7 +2,9 @@
 <figure class="home-photo">
   {{- with resources.Get .Site.Params.homeImage }}
   {{- $img := .Fit "2000x1400 q85" }}
-  <img src="{{ $img.RelPermalink }}" width="{{ $img.Width }}" height="{{ $img.Height }}" alt="{{ $.Site.Params.homeImageCaption | default "صورة من تصوير أسامة الجهني" }}" fetchpriority="high">
+  <a class="home-photo-link" href="{{ "photography/" | relURL }}" aria-label="افتح معرض التصوير الفوتوغرافي">
+    <img src="{{ $img.RelPermalink }}" width="{{ $img.Width }}" height="{{ $img.Height }}" alt="{{ $.Site.Params.homeImageAlt | default "صورة من تصوير أسامة الجهني" }}" fetchpriority="high">
+  </a>
   {{- else }}
   <div class="photo-placeholder" role="img" aria-label="مكان الصورة الرئيسية">الصورة الرئيسية</div>
   {{- end }}

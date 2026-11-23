@@ -7,13 +7,14 @@
 <div class="book" dir="ltr" lang="en">
   {{- range $pi, $page := $cv.pages }}
   <article class="book-page">
-    <p class="book-running-head">{{ $cv.name }}</p>
     {{- if eq $pi 0 }}
     <header class="book-titleblock">
       <h2 class="book-title">{{ $cv.name }}</h2>
       <p class="book-roles">{{ $cv.roles }}</p>
       <p class="book-location">{{ $cv.location }}</p>
     </header>
+    {{- else }}
+    <p class="book-running-head">{{ $cv.name }}</p>
     {{- end }}
     {{- range $page.sections }}
     <section class="book-section">

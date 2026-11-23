@@ -12,7 +12,7 @@
     {{- $img := $p.Fit "1800x1400 q85" }}
     {{- $base := path.Base $p.Name }}
     <figure class="slide" data-slide{{ if ne $i 0 }} hidden{{ end }}>
-      <img src="{{ $img.RelPermalink }}" width="{{ $img.Width }}" height="{{ $img.Height }}" alt="{{ index $captions $base | default (printf "صورة %d" (add $i 1)) }}" {{ if ne $i 0 }}loading="lazy"{{ end }}>
+      <img src="{{ $img.RelPermalink }}" width="{{ $img.Width }}" height="{{ $img.Height }}" alt="{{ index $.Site.Data.photo_alt $base | default (index $captions $base) | default (printf "صورة %d" (add $i 1)) }}" {{ if ne $i 0 }}loading="lazy"{{ end }}>
       {{ with index $captions $base }}<figcaption>{{ . }}</figcaption>{{ end }}
     </figure>
     {{- end }}
@@ -25,8 +25,9 @@
     {{- end }}
   </div>
   <div class="gallery-controls">
-    <button type="button" class="gallery-next" data-next aria-label="الصورة التالية">→</button>
-    <span class="gallery-count" data-count aria-live="polite" dir="ltr"></span>
+    <button type="button" data-previous aria-label="الصورة السابقة">السابقة</button>
+    <span class="gallery-count" data-count aria-live="polite" dir="ltr">1 / {{ if $photos }}{{ len $photos }}{{ else }}3{{ end }}</span>
+    <button type="button" data-next aria-label="الصورة التالية">التالية</button>
   </div>
 </section>
 {{- $js := resources.Get "js/gallery.js" | minify | fingerprint }}

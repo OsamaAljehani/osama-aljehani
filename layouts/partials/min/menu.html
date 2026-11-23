@@ -1,9 +1,14 @@
 {{- $cur := .RelPermalink -}}
 {{- $links := slice
-  (dict "name" "آخر المنشورات السياسية والاقتصادية" "short" "المنشورات" "url" ("posts/" | relURL))
-  (dict "name" "أعمال التصوير الفوتوغرافي" "short" "التصوير" "url" ("photography/" | relURL))
-  (dict "name" "السيرة الذاتية" "short" "السيرة الذاتية" "url" ("cv/" | relURL))
-  (dict "name" "عن الكاتب" "short" "عن الكاتب" "url" ("about/" | relURL)) -}}
+  (dict "page" "/posts" "label" "كتابات سياسية واقتصادية" "short" "كتابات")
+  (dict "page" "/photography" "label" "التصوير الفوتوغرافي" "short" "التصوير")
+  (dict "page" "/cv" "label" "السيرة الذاتية" "short" "السيرة الذاتية")
+  (dict "page" "/about" "label" "عن الكاتب" "short" "عن الكاتب") -}}
 {{- range $links }}
-<a href="{{ .url }}"{{ if hasPrefix $cur .url }} aria-current="page"{{ end }}>{{ if $.IsHome }}{{ .name }}{{ else }}{{ .short }}{{ end }}</a>
+  {{- $link := . -}}
+  {{- with $.Site.GetPage .page }}
+    {{- if or (ne $link.page "/posts") .RegularPagesRecursive }}
+<a href="{{ .RelPermalink }}"{{ if eq $cur .RelPermalink }} aria-current="page"{{ else if hasPrefix $cur .RelPermalink }} aria-current="location"{{ end }}>{{ if $.IsHome }}{{ $link.label }}{{ else }}{{ $link.short }}{{ end }}</a>
+    {{- end }}
+  {{- end }}
 {{- end }}

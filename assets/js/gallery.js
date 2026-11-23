@@ -1,29 +1,44 @@
 (() => {
-  const g = document.querySelector('[data-gallery]');
-  if (!g) return;
-  const slides = Array.from(g.querySelectorAll('[data-slide]'));
-  const next = g.querySelector('[data-next]');
-  const count = g.querySelector('[data-count]');
-  let i = 0;
-  const show = n => {
-    slides[i].hidden = true;
-    i = (n + slides.length) % slides.length;
-    slides[i].hidden = false;
-    if (count) count.textContent = `${i + 1} / ${slides.length}`;
-  };
-  show(0);
-  if (slides.length < 2) { next.hidden = true; return; }
-  next.addEventListener('click', () => show(i + 1));
-  document.addEventListener('keydown', e => {
-    if (e.key === 'ArrowRight') show(i + 1);
-    if (e.key === 'ArrowLeft') show(i - 1);
+  const gallery = document.querySelector('[data-gallery]');
+  if (!gallery) return;
+
+  const slides = Array.from(gallery.querySelectorAll('[data-slide]'));
+  const controls = gallery.querySelector('.gallery-controls');
+  if (slides.length < 2) {
+    controls.hidden = true;
+    return;
+  }
+
+  const count = controls.querySelector('[data-count]');
+  let current = 0;
+  function move(step) {
+    slides[current].hidden = true;
+    current = (current + step + slides.length) % slides.length;
+    slides[current].hidden = false;
+    count.textContent = `${current + 1} / ${slides.length}`;
+  }
+
+  controls.querySelector('[data-previous]').addEventListener('click', () => move(-1));
+  controls.querySelector('[data-next]').addEventListener('click', () => move(1));
+  document.addEventListener('keydown', event => {
+    if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
+    if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
+    event.preventDefault();
+    move(event.key === 'ArrowLeft' ? 1 : -1);
   });
-  let x0 = null;
-  g.addEventListener('touchstart', e => { x0 = e.touches[0].clientX; }, { passive: true });
-  g.addEventListener('touchend', e => {
-    if (x0 === null) return;
-    const dx = e.changedTouches[0].clientX - x0;
-    if (Math.abs(dx) > 40) show(i + (dx < 0 ? 1 : -1));
-    x0 = null;
-  });
+
+  const stage = gallery.querySelector('.gallery-stage');
+  let start;
+  stage.addEventListener('touchstart', event => {
+    start = event.touches.length === 1 ? event.touches[0] : null;
+  }, { passive: true });
+  stage.addEventListener('touchcancel', () => { start = null; });
+  stage.addEventListener('touchend', event => {
+    if (!start) return;
+    const end = event.changedTouches[0];
+    const dx = end.clientX - start.clientX;
+    const dy = end.clientY - start.clientY;
+    if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) move(dx > 0 ? 1 : -1);
+    start = null;
+  }, { passive: true });
 })();

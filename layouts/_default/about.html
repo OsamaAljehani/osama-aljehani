@@ -4,8 +4,8 @@
     <h1>{{ .Title }}</h1>
   </header>
   <div class="about-body">
-    {{ with resources.Get .Site.Params.avatar }}{{ $p := .Fill "320x320" }}
-    <img class="portrait" src="{{ $p.RelPermalink }}" alt="{{ $.Site.Title }}" width="140" height="140">
+    {{ with resources.Get .Site.Params.avatar }}{{ $p := .Fit "440x660 q85" }}
+    <img class="portrait" src="{{ $p.RelPermalink }}" alt="{{ $.Site.Title }}" width="{{ $p.Width }}" height="{{ $p.Height }}">
     {{ end }}
     <div class="prose">{{ .Content }}</div>
   </div>
