@@ -1,0 +1,15 @@
+<footer class="site-footer">
+  <div class="wrap footer-inner">
+    <div>
+      <p class="footer-name">{{ .Site.Title }}</p>
+      <p class="footer-tagline">{{ .Site.Params.tagline }}</p>
+    </div>
+    <ul class="footer-links">
+      {{- range .Site.Menus.social }}
+      <li><a href="{{ .URL }}" rel="me noopener" target="_blank">{{ .Name }}</a></li>
+      {{- end }}
+      <li><a href="{{ "index.xml" | relURL }}">RSS</a></li>
+    </ul>
+    <p class="copyright">© {{ now.Format "2006" }} {{ .Site.Title }}. الآراء المنشورة هنا شخصية ولا تمثل جهة العمل.</p>
+  </div>
+</footer>

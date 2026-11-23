@@ -1,0 +1,31 @@
+{{ define "main" }}
+<article class="article wrap">
+  <header class="article-head">
+    {{ partial "site/kicker" . }}
+    <h1>{{ .Title }}</h1>
+    {{ with .Params.summary }}<p class="deck">{{ . }}</p>{{ end }}
+    <div class="byline">
+      {{ with resources.Get .Site.Params.avatar }}{{ $p := .Fill "96x96" }}<img src="{{ $p.RelPermalink }}" alt="" width="40" height="40">{{ end }}
+      <p><span class="byline-name">{{ .Site.Title }}</span><span class="meta">{{ partial "site/meta-line" . }} <span aria-hidden="true">·</span> {{ partial "site/reading-time" . }}</span></p>
+    </div>
+  </header>
+  <div class="prose">
+    {{ .Content }}
+  </div>
+  <footer class="article-foot">
+    {{ with .Params.tags }}
+    <ul class="tags">{{ range . }}<li><a href="{{ (printf "tags/%s/" (urlize .)) | relURL }}">{{ . }}</a></li>{{ end }}</ul>
+    {{ end }}
+    <p class="share">شارك:
+      <a href="https://x.com/intent/post?url={{ .Permalink }}&amp;text={{ .Title }}" target="_blank" rel="noopener">X</a>
+      <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ .Permalink }}" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://wa.me/?text={{ .Title }}%20{{ .Permalink }}" target="_blank" rel="noopener">واتساب</a>
+    </p>
+  </footer>
+  {{ partial "site/subscribe" . }}
+  <nav class="prev-next" aria-label="مواد أخرى">
+    {{ with .PrevInSection }}<a class="prev" href="{{ .RelPermalink }}"><span>الأحدث</span>{{ .Title }}</a>{{ end }}
+    {{ with .NextInSection }}<a class="next" href="{{ .RelPermalink }}"><span>الأقدم</span>{{ .Title }}</a>{{ end }}
+  </nav>
+</article>
+{{ end }}

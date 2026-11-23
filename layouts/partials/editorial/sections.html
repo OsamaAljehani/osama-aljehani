@@ -1,0 +1,45 @@
+{{ range .Site.Data.editorial.sections }}
+<section id="{{ .id }}" class="news-section" aria-labelledby="{{ .id }}-heading">
+  <header class="news-section-header">
+    <div>
+      <h2 id="{{ .id }}-heading">{{ .title }}</h2>
+      <p class="section-description">{{ .description }}</p>
+    </div>
+    {{ if not .entries }}<span class="publication-status">قريبًا</span>{{ end }}
+  </header>
+
+  {{ if .entries }}
+  <div class="editorial-entries">
+    {{ range .entries }}
+    {{ $entry := . }}
+    <article class="editorial-entry">
+      {{ if or .category .type }}
+      <div class="entry-meta">
+        {{ with .category }}<span>{{ . }}</span>{{ end }}
+        {{ with .type }}<span class="entry-type">{{ . }}</span>{{ end }}
+      </div>
+      {{ end }}
+      <h3>{{ .title }}</h3>
+      <p>{{ .summary }}</p>
+      {{ with .points }}
+      <ul class="bulletin-points">{{ range . }}<li>{{ . }}</li>{{ end }}</ul>
+      {{ end }}
+      {{ if or .source .date }}
+      <p class="entry-source">
+        {{ with .source }}المصدر: {{ if $entry.url }}<a href="{{ $entry.url }}">{{ . }}</a>{{ else }}{{ . }}{{ end }}{{ end }}{{ if and .source .date }} — {{ end }}
+        {{ with .date }}<time datetime="{{ . }}"{{ if not $entry.date_label }} dir="ltr"{{ end }}>{{ $entry.date_label | default . }}</time>{{ end }}
+      </p>
+      {{ else }}
+      {{ with .url }}<a class="source-link" href="{{ . }}">قراءة المصدر</a>{{ end }}
+      {{ end }}
+    </article>
+    {{ end }}
+  </div>
+  {{ else }}
+  <div class="section-empty">
+    {{ with .empty_title }}<h3>{{ . }}</h3>{{ end }}
+    <p>{{ .empty_text }}</p>
+  </div>
+  {{ end }}
+</section>
+{{ end }}

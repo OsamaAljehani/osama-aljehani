@@ -2,7 +2,7 @@
 isSinglePage = true
 
 # Meta Config
-description = "Hello"
+description = "صحفي ومراسل دولي مقيم في واشنطن، مهتم بالشؤون السياسية والاقتصادية والعلاقات الدولية."
 
 # Header Configuration
 avatar = "img/profile-img.jpg"
@@ -10,6 +10,13 @@ favicon = "favicon.ico"
 
 # disqus is a comment system. see https://disqus.com
 disqusShortname = ""
+
+tagline = "واشنطن بعيون عربية: السياسة والاقتصاد"
+
+[newsletter]
+title = "اشترك في الرسالة الأسبوعية"
+pitch = "كل أحد، قراءة في أهم ما قررته واشنطن خلال الأسبوع، وما يعنيه للخليج والعالم العربي. عشر دقائق تكفي."
+buttondown = ""   # ضع هنا اسم المستخدم في Buttondown لتفعيل نموذج الاشتراك
 
 [emoji]
 enableEmoji = true

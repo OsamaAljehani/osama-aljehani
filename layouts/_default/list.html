@@ -1,0 +1,24 @@
+{{ define "main" }}
+<div class="wrap listing">
+  <header class="listing-head">
+    <h1>{{ .Title }}</h1>
+    {{ with .Params.description }}<p class="deck">{{ . }}</p>{{ end }}
+  </header>
+  {{- $pages := .Pages -}}
+  {{- if .IsHome }}{{ $pages = .Site.RegularPages }}{{ end -}}
+  <ol class="list-items">
+    {{- range $pages }}
+    <li>
+      <article>
+        {{ partial "site/kicker" . }}
+        <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+        {{ with .Params.summary }}<p>{{ . }}</p>{{ end }}
+        <p class="meta">{{ if .IsPage }}{{ partial "site/meta-line" . }}{{ else }}{{ len .Pages }} مواد{{ end }}</p>
+      </article>
+    </li>
+    {{- else }}
+    <li class="empty-note">لا توجد مواد منشورة في هذا القسم بعد.</li>
+    {{- end }}
+  </ol>
+</div>
+{{ end }}

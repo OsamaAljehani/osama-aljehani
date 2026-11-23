@@ -1,0 +1,22 @@
+{{ define "main" }}
+{{- $home := .Site.Home -}}
+<article class="article wrap about-page">
+  <header class="article-head">
+    <span class="kicker">عن الكاتب</span>
+    <h1>{{ .Title }}</h1>
+  </header>
+  <div class="about-grid">
+    {{ with resources.Get .Site.Params.avatar }}{{ $p := .Fill "480x480" }}
+    <img class="portrait" src="{{ $p.RelPermalink }}" alt="{{ $.Site.Title }}" width="240" height="240">
+    {{ end }}
+    <div class="prose">
+      <p class="lede">{{ $home.Params.introduction }}</p>
+      <h2>الخبرة المهنية</h2>
+      <p>{{ $home.Params.experience }}</p>
+      <h2>التعليم</h2>
+      <ul>{{ range $home.Params.education }}<li><strong>{{ .degree }}</strong>، {{ .institution }}</li>{{ end }}</ul>
+      {{ .Content }}
+    </div>
+  </div>
+</article>
+{{ end }}

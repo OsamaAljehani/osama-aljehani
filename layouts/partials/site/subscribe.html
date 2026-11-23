@@ -1,0 +1,21 @@
+{{- $bd := .Site.Params.newsletter.buttondown -}}
+<section id="subscribe" class="subscribe" aria-labelledby="subscribe-heading">
+  <div class="subscribe-copy">
+    <p class="kicker">الرسالة الأسبوعية</p>
+    <h2 id="subscribe-heading">{{ .Site.Params.newsletter.title | default "اشترك في الرسالة الأسبوعية" }}</h2>
+    <p>{{ .Site.Params.newsletter.pitch }}</p>
+  </div>
+  {{- if $bd }}
+  <form class="subscribe-form" action="https://buttondown.com/api/emails/embed-subscribe/{{ $bd }}" method="post" target="_blank">
+    <label class="visually-hidden" for="subscribe-email">البريد الإلكتروني</label>
+    <input id="subscribe-email" type="email" name="email" placeholder="بريدك الإلكتروني" required dir="ltr">
+    <button type="submit">اشترك</button>
+  </form>
+  {{- else }}
+  <div class="subscribe-form is-pending">
+    <input type="email" placeholder="بريدك الإلكتروني" disabled aria-label="البريد الإلكتروني" dir="ltr">
+    <button type="button" disabled>قريبًا</button>
+  </div>
+  <p class="subscribe-note">يبدأ الاشتراك مع إطلاق العدد الأول.</p>
+  {{- end }}
+</section>

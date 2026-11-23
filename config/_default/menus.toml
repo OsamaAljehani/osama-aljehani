@@ -5,40 +5,27 @@
     weight = 1
 
 [[main]]
-    identifier = "posts"
-    name = "المنشورات"
-    url = "/posts"
+    identifier = "issues"
+    name = "الأعداد"
+    url = "/issues/"
     weight = 2
 
 [[main]]
-    identifier = "categories"
-    name = "التصنيفات"
-    url = "/categories"
+    identifier = "columns"
+    name = "مقالات الرأي"
+    url = "/columns/"
     weight = 3
 
 [[main]]
-    identifier = "tags"
-    name = "المواضيع"
-    url = "/tags"
+    identifier = "about"
+    name = "عن الكاتب"
+    url = "/about/"
     weight = 4
-
 
 # Social Media Configuration
 
 [[social]]
-    identifier = "twitter"
-    name = "Twitter"
-    url = "#"
+    identifier = "linkedin"
+    name = "LinkedIn"
+    url = "https://www.linkedin.com/in/osama-aljehani-241a01356/"
     weight = 1
-
-[[social]]
-    identifier = "instagram"
-    name = "Instagram"
-    url = "#"
-    weight = 2
-
-[[social]]
-    identifier = "github"
-    name = "GitHub"
-    url = "#"
-    weight = 3
