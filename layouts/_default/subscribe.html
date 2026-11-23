@@ -1,0 +1,29 @@
+{{ define "main" }}
+{{- $bd := .Site.Params.newsletter.buttondown -}}
+<p class="cmd" dir="ltr"><span class="prompt">C:\OSAMA&gt;</span> <span class="typed">SUBSCRIB.EXE</span></p>
+<article class="window">
+  <header class="win-title" dir="ltr">
+    <a class="win-close" href="{{ "/" | relURL }}" data-esc aria-label="إغلاق والرجوع">[■]</a>
+    <span>SUBSCRIB.EXE</span>
+    <span class="win-size">512 bytes</span>
+  </header>
+  <div class="win-body">
+    <pre class="exe-banner" dir="ltr">SUBSCRIBE v1.0  (C) {{ now.Format "2006" }} OSAMA-DOS
+Loading newsletter module... OK</pre>
+    <h1>{{ .Site.Params.newsletter.title }}</h1>
+    <p class="deck">{{ .Site.Params.newsletter.pitch }}</p>
+    {{- if $bd }}
+    <form class="term-form" action="https://buttondown.com/api/emails/embed-subscribe/{{ $bd }}" method="post" target="_blank">
+      <label for="email">أدخل بريدك الإلكتروني:</label>
+      <div class="term-input" dir="ltr"><span>&gt;</span><input id="email" type="email" name="email" required autocomplete="email" placeholder="name@example.com"></div>
+      <button class="btn" type="submit">[ Enter ] اشترك</button>
+    </form>
+    {{- else }}
+    <pre class="exe-error" dir="ltr">ERROR: Mailing list not yet online.
+Service starts with issue #1.</pre>
+    <p>يبدأ الاشتراك مع إطلاق العدد الأول. حتى ذلك الحين يمكنك المتابعة عبر <a href="{{ "index.xml" | relURL }}">RSS</a>.</p>
+    {{- end }}
+  </div>
+</article>
+{{ partial "term/prompt" (dict "path" "C:\\OSAMA") }}
+{{ end }}

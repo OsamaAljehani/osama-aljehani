@@ -1,24 +1,24 @@
 {{ define "main" }}
-<div class="wrap listing">
-  <header class="listing-head">
-    <h1>{{ .Title }}</h1>
-    {{ with .Params.description }}<p class="deck">{{ . }}</p>{{ end }}
-  </header>
-  {{- $pages := .Pages -}}
-  {{- if .IsHome }}{{ $pages = .Site.RegularPages }}{{ end -}}
-  <ol class="list-items">
-    {{- range $pages }}
-    <li>
-      <article>
-        {{ partial "site/kicker" . }}
-        <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
-        {{ with .Params.summary }}<p>{{ . }}</p>{{ end }}
-        <p class="meta">{{ if .IsPage }}{{ partial "site/meta-line" . }}{{ else }}{{ len .Pages }} مواد{{ end }}</p>
-      </article>
-    </li>
+{{- $path := partial "term/path" . -}}
+<p class="cmd" dir="ltr"><span class="prompt">{{ $path }}&gt;</span> <span class="typed">DIR</span></p>
+<pre class="dir-head" dir="ltr"> Directory of {{ $path }}
+</pre>
+<header class="dir-title">
+  <h1>{{ .Title }}</h1>
+  {{ with .Params.description }}<p>{{ . }}</p>{{ end }}
+</header>
+<ol class="listing" data-listing dir="ltr">
+  {{ partial "term/row" (dict "name" ".." "ext" "" "size" "<DIR>" "date" "" "label" "رجوع" "href" ("/" | relURL)) }}
+  {{- range .Pages }}
+    {{- if .IsPage }}
+      {{- $fn := split (partial "term/filename" .) "." -}}
+      {{ partial "term/row" (dict "name" (index $fn 0) "ext" (index $fn 1) "size" (lang.FormatNumberCustom 0 (len .RawContent)) "date" (partial "term/date" .) "label" .Title "href" .RelPermalink) }}
     {{- else }}
-    <li class="empty-note">لا توجد مواد منشورة في هذا القسم بعد.</li>
+      {{ partial "term/row" (dict "name" (upper (substr (.Title | urlize) 0 8)) "ext" "" "size" "<DIR>" "date" "" "label" .Title "href" .RelPermalink) }}
     {{- end }}
-  </ol>
-</div>
+  {{- end }}
+</ol>
+<pre class="dir-foot" dir="ltr">        {{ len .Pages }} File(s)        640K bytes free</pre>
+{{- if not .Pages }}<p class="hint">لا توجد ملفات في هذا المجلد بعد.</p>{{ end }}
+{{ partial "term/prompt" (dict "path" $path) }}
 {{ end }}

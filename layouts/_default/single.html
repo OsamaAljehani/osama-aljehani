@@ -1,31 +1,37 @@
 {{ define "main" }}
-<article class="article wrap">
-  <header class="article-head">
-    {{ partial "site/kicker" . }}
+{{- $fname := partial "term/filename" . -}}
+{{- $dir := "C:\\OSAMA" }}{{ with .Section }}{{ $dir = printf "%s\\%s" $dir (upper .) }}{{ end -}}
+{{- $up := "/" | relURL }}{{ with .Parent }}{{ $up = .RelPermalink }}{{ end -}}
+<p class="cmd" dir="ltr"><span class="prompt">{{ $dir }}&gt;</span> <span class="typed">TYPE {{ $fname }}</span></p>
+<article class="window">
+  <header class="win-title" dir="ltr">
+    <a class="win-close" href="{{ $up }}" data-esc aria-label="إغلاق والرجوع">[■]</a>
+    <span>{{ $fname }}</span>
+    <span class="win-size">{{ lang.FormatNumberCustom 0 (len .RawContent) }} bytes</span>
+  </header>
+  <div class="win-body">
+    <p class="kicker">
+      {{- if eq .Section "issues" }}الرسالة الأسبوعية{{ with .Params.issue }} · العدد {{ . }}{{ end }}{{ else if eq .Section "columns" }}مقال رأي{{ end -}}
+    </p>
     <h1>{{ .Title }}</h1>
     {{ with .Params.summary }}<p class="deck">{{ . }}</p>{{ end }}
-    <div class="byline">
-      {{ with resources.Get .Site.Params.avatar }}{{ $p := .Fill "96x96" }}<img src="{{ $p.RelPermalink }}" alt="" width="40" height="40">{{ end }}
-      <p><span class="byline-name">{{ .Site.Title }}</span><span class="meta">{{ partial "site/meta-line" . }} <span aria-hidden="true">·</span> {{ partial "site/reading-time" . }}</span></p>
+    <p class="meta">{{ .Site.Title }} · <span dir="ltr">{{ partial "term/date" . }}</span> · {{ partial "term/reading-time" . }}</p>
+    <div class="prose">
+      {{ .Content }}
     </div>
-  </header>
-  <div class="prose">
-    {{ .Content }}
   </div>
-  <footer class="article-foot">
-    {{ with .Params.tags }}
-    <ul class="tags">{{ range . }}<li><a href="{{ (printf "tags/%s/" (urlize .)) | relURL }}">{{ . }}</a></li>{{ end }}</ul>
-    {{ end }}
-    <p class="share">شارك:
-      <a href="https://x.com/intent/post?url={{ .Permalink }}&amp;text={{ .Title }}" target="_blank" rel="noopener">X</a>
-      <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ .Permalink }}" target="_blank" rel="noopener">LinkedIn</a>
-      <a href="https://wa.me/?text={{ .Title }}%20{{ .Permalink }}" target="_blank" rel="noopener">واتساب</a>
+  <footer class="win-foot">
+    {{ with .Params.tags }}<p class="tags">{{ range . }}<a href="{{ (printf "tags/%s/" (urlize .)) | relURL }}">#{{ . }}</a> {{ end }}</p>{{ end }}
+    <p class="share">مشاركة:
+      <a href="https://x.com/intent/post?url={{ .Permalink }}&amp;text={{ .Title }}" target="_blank" rel="noopener">[X]</a>
+      <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ .Permalink }}" target="_blank" rel="noopener">[LinkedIn]</a>
+      <a href="https://wa.me/?text={{ .Title }}%20{{ .Permalink }}" target="_blank" rel="noopener">[واتساب]</a>
     </p>
+    <nav class="prev-next" aria-label="ملفات أخرى">
+      {{ with .PrevInSection }}<a href="{{ .RelPermalink }}">&lt;&lt; الأحدث: {{ .Title }}</a>{{ end }}
+      {{ with .NextInSection }}<a href="{{ .RelPermalink }}">الأقدم: {{ .Title }} &gt;&gt;</a>{{ end }}
+    </nav>
   </footer>
-  {{ partial "site/subscribe" . }}
-  <nav class="prev-next" aria-label="مواد أخرى">
-    {{ with .PrevInSection }}<a class="prev" href="{{ .RelPermalink }}"><span>الأحدث</span>{{ .Title }}</a>{{ end }}
-    {{ with .NextInSection }}<a class="next" href="{{ .RelPermalink }}"><span>الأقدم</span>{{ .Title }}</a>{{ end }}
-  </nav>
 </article>
+{{ partial "term/prompt" (dict "path" $dir) }}
 {{ end }}

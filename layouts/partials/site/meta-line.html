@@ -1,2 +1,0 @@
-{{- $months := slice "يناير" "فبراير" "مارس" "أبريل" "مايو" "يونيو" "يوليو" "أغسطس" "سبتمبر" "أكتوبر" "نوفمبر" "ديسمبر" -}}
-<time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Day }} {{ index $months (sub .Date.Month 1) }} {{ .Date.Year }}</time>

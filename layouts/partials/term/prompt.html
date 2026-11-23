@@ -1,0 +1,10 @@
+{{- /* Interactive command prompt. Context: dict "path" */ -}}
+<div class="console" data-console>
+  <div class="console-out" data-out aria-live="polite"></div>
+  <form class="cmd prompt-line" data-prompt dir="ltr" autocomplete="off">
+    <label class="prompt" for="cmd-input">{{ .path }}&gt;</label>
+    <input id="cmd-input" type="text" data-cmd spellcheck="false" autocapitalize="characters" enterkeyhint="go" aria-label="اكتب أمرًا، مثل HELP">
+    <span class="cursor" aria-hidden="true"></span>
+  </form>
+</div>
+<p class="hint">انقر على أي ملف لفتحه، أو تنقّل بالأسهم واضغط Enter. ويمكنك كتابة الأوامر مباشرة، اكتب <kbd>HELP</kbd> للمساعدة.</p>

@@ -1,7 +1,0 @@
-{{- if eq .Section "issues" -}}
-<span class="kicker">الرسالة الأسبوعية{{ with .Params.issue }} · العدد {{ . }}{{ end }}</span>
-{{- else if eq .Section "columns" -}}
-<span class="kicker">مقال رأي</span>
-{{- else -}}
-<span class="kicker">{{ with .Parent }}{{ .Title }}{{ end }}</span>
-{{- end -}}

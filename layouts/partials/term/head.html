@@ -1,7 +1,7 @@
 {{- $favicon := resources.Get "img/favicon.ico" -}}
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{{ if .IsHome }}{{ .Site.Title }} | {{ .Site.Params.tagline }}{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}</title>
+<title>{{ if .IsHome }}{{ .Site.Title }} | {{ .Site.Params.tagline }}{{ else if eq .Layout "about" }}عن الكاتب | {{ .Site.Title }}{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}</title>
 {{- $desc := .Site.Params.description -}}
 {{- if and (not .IsHome) .Params.summary }}{{ $desc = .Params.summary }}{{ end }}
 <meta name="description" content="{{ $desc }}">
@@ -13,15 +13,15 @@
 <meta property="og:url" content="{{ .Permalink }}">
 <meta property="og:locale" content="ar_AR">
 <meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#050805">
 {{ with .OutputFormats.Get "rss" }}<link rel="alternate" type="application/rss+xml" href="{{ .RelPermalink }}" title="{{ $.Site.Title }}">{{ end }}
-<meta name="color-scheme" content="light dark">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&amp;family=IBM+Plex+Sans+Arabic:wght@400;500;600&amp;family=Noto+Naskh+Arabic:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=VT323&amp;family=IBM+Plex+Sans+Arabic:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@400;600&amp;display=swap" rel="stylesheet">
 <script>
-  try { if (localStorage.getItem('osama-appearance') === 'dark') document.documentElement.dataset.theme = 'dark'; } catch (_) {}
+  try { var p = localStorage.getItem('osama-phosphor'); if (p) document.documentElement.dataset.phosphor = p; } catch (_) {}
 </script>
-{{- $css := resources.Get "css/site.css" | minify | fingerprint -}}
+{{- $css := resources.Get "css/terminal.css" | minify | fingerprint -}}
 <link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}">
-{{- $js := resources.Get "js/site.js" | minify | fingerprint -}}
+{{- $js := resources.Get "js/terminal.js" | minify | fingerprint -}}
 <script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" defer></script>

@@ -1,0 +1,10 @@
+{{- /* one listing row: context = dict "page" "name" "ext" "size" "date" "label" "href" */ -}}
+<li>
+  <a class="row" href="{{ .href }}" data-row>
+    <span class="c-name">{{ .name }}</span>
+    <span class="c-ext">{{ .ext }}</span>
+    <span class="c-size">{{ .size }}</span>
+    <span class="c-date">{{ .date }}</span>
+    <span class="c-label" dir="rtl">{{ .label }}</span>
+  </a>
+</li>
