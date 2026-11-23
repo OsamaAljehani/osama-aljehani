@@ -1,37 +1,20 @@
 {{ define "main" }}
-{{- $fname := partial "term/filename" . -}}
-{{- $dir := "C:\\OSAMA" }}{{ with .Section }}{{ $dir = printf "%s\\%s" $dir (upper .) }}{{ end -}}
-{{- $up := "/" | relURL }}{{ with .Parent }}{{ $up = .RelPermalink }}{{ end -}}
-<p class="cmd" dir="ltr"><span class="prompt">{{ $dir }}&gt;</span> <span class="typed">TYPE {{ $fname }}</span></p>
-<article class="window">
-  <header class="win-title" dir="ltr">
-    <a class="win-close" href="{{ $up }}" data-esc aria-label="إغلاق والرجوع">[■]</a>
-    <span>{{ $fname }}</span>
-    <span class="win-size">{{ lang.FormatNumberCustom 0 (len .RawContent) }} bytes</span>
-  </header>
-  <div class="win-body">
-    <p class="kicker">
-      {{- if eq .Section "issues" }}الرسالة الأسبوعية{{ with .Params.issue }} · العدد {{ . }}{{ end }}{{ else if eq .Section "columns" }}مقال رأي{{ end -}}
-    </p>
+<article class="article">
+  <header class="article-head">
     <h1>{{ .Title }}</h1>
-    {{ with .Params.summary }}<p class="deck">{{ . }}</p>{{ end }}
-    <p class="meta">{{ .Site.Title }} · <span dir="ltr">{{ partial "term/date" . }}</span> · {{ partial "term/reading-time" . }}</p>
-    <div class="prose">
-      {{ .Content }}
-    </div>
+    {{ with .Params.summary }}<p class="subtitle">{{ . }}</p>{{ end }}
+    <p class="byline">{{ .Site.Title }} · {{ partial "min/date" . }}</p>
+  </header>
+  <div class="prose">
+    {{ .Content }}
   </div>
-  <footer class="win-foot">
-    {{ with .Params.tags }}<p class="tags">{{ range . }}<a href="{{ (printf "tags/%s/" (urlize .)) | relURL }}">#{{ . }}</a> {{ end }}</p>{{ end }}
-    <p class="share">مشاركة:
-      <a href="https://x.com/intent/post?url={{ .Permalink }}&amp;text={{ .Title }}" target="_blank" rel="noopener">[X]</a>
-      <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ .Permalink }}" target="_blank" rel="noopener">[LinkedIn]</a>
-      <a href="https://wa.me/?text={{ .Title }}%20{{ .Permalink }}" target="_blank" rel="noopener">[واتساب]</a>
+  <footer class="article-foot">
+    <p>شارك:
+      <a href="https://x.com/intent/post?url={{ .Permalink }}&amp;text={{ .Title }}" target="_blank" rel="noopener">X</a> ·
+      <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ .Permalink }}" target="_blank" rel="noopener">LinkedIn</a> ·
+      <a href="https://wa.me/?text={{ .Title }}%20{{ .Permalink }}" target="_blank" rel="noopener">واتساب</a>
     </p>
-    <nav class="prev-next" aria-label="ملفات أخرى">
-      {{ with .PrevInSection }}<a href="{{ .RelPermalink }}">&lt;&lt; الأحدث: {{ .Title }}</a>{{ end }}
-      {{ with .NextInSection }}<a href="{{ .RelPermalink }}">الأقدم: {{ .Title }} &gt;&gt;</a>{{ end }}
-    </nav>
+    <p><a href="{{ "posts/" | relURL }}">← كل المنشورات</a></p>
   </footer>
 </article>
-{{ partial "term/prompt" (dict "path" $dir) }}
 {{ end }}

@@ -1,50 +1,11 @@
 {{ define "main" }}
-{{- $issues := where .Site.RegularPages "Section" "issues" -}}
-{{- $columns := where .Site.RegularPages "Section" "columns" -}}
-{{- $about := .Site.GetPage "/about" -}}
-{{- $sub := .Site.GetPage "/subscribe" -}}
-<section class="banner">
-  <h1>{{ .Site.Title }}</h1>
-  <p>{{ .Site.Params.tagline }}</p>
-</section>
-
-<p class="cmd" dir="ltr"><span class="prompt">C:\OSAMA&gt;</span> <span class="typed">DIR</span></p>
-<pre class="dir-head" dir="ltr"> Volume in drive C is WASHINGTON
- Directory of C:\OSAMA
-</pre>
-<ol class="listing" data-listing dir="ltr">
-  {{- $latestDate := "" }}{{ with index $issues 0 }}{{ $latestDate = partial "term/date" . }}{{ end }}
-  {{ partial "term/row" (dict "name" "ISSUES" "ext" "" "size" "<DIR>" "date" $latestDate "label" "الأعداد: الرسالة الأسبوعية" "href" ("issues/" | relURL)) }}
-  {{- $colDate := "" }}{{ with index $columns 0 }}{{ $colDate = partial "term/date" . }}{{ end }}
-  {{ partial "term/row" (dict "name" "COLUMNS" "ext" "" "size" "<DIR>" "date" $colDate "label" "مقالات الرأي" "href" ("columns/" | relURL)) }}
-  {{- with index $issues 0 }}
-  {{ partial "term/row" (dict "name" "LATEST" "ext" "TXT" "size" (lang.FormatNumberCustom 0 (len .RawContent)) "date" (partial "term/date" .) "label" (printf "آخر عدد: %s" .Title) "href" .RelPermalink) }}
+<figure class="home-photo">
+  {{- with resources.Get .Site.Params.homeImage }}
+  {{- $img := .Fit "2000x1400 q85" }}
+  <img src="{{ $img.RelPermalink }}" width="{{ $img.Width }}" height="{{ $img.Height }}" alt="{{ $.Site.Params.homeImageCaption | default "صورة من تصوير أسامة الجهني" }}" fetchpriority="high">
+  {{- else }}
+  <div class="photo-placeholder" role="img" aria-label="مكان الصورة الرئيسية">الصورة الرئيسية</div>
   {{- end }}
-  {{- with $about }}
-  {{ partial "term/row" (dict "name" "ABOUT" "ext" "TXT" "size" (lang.FormatNumberCustom 0 (len .RawContent)) "date" (now.Format "02-01-06") "label" "عن الكاتب" "href" .RelPermalink) }}
-  {{- end }}
-  {{- with $sub }}
-  {{ partial "term/row" (dict "name" "SUBSCRIB" "ext" "EXE" "size" "512" "date" (now.Format "02-01-06") "label" "اشترك في الرسالة الأسبوعية" "href" .RelPermalink) }}
-  {{- end }}
-</ol>
-<pre class="dir-foot" dir="ltr">        {{ add 3 (len (first 1 $issues)) }} File(s)        640K bytes free</pre>
-
-{{- with index $issues 0 }}
-<p class="cmd" dir="ltr"><span class="prompt">C:\OSAMA&gt;</span> <span class="typed">TYPE LATEST.TXT</span></p>
-<article class="preview">
-  <p class="kicker">الرسالة الأسبوعية{{ with .Params.issue }} · العدد {{ . }}{{ end }} · <span dir="ltr">{{ partial "term/date" . }}</span></p>
-  <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
-  {{ with .Params.summary }}<p>{{ . }}</p>{{ end }}
-  <a class="btn" href="{{ .RelPermalink }}">[ Enter ] اقرأ العدد</a>
-</article>
-{{- else }}
-<p class="cmd" dir="ltr"><span class="prompt">C:\OSAMA&gt;</span> <span class="typed">TYPE LATEST.TXT</span></p>
-<article class="preview">
-  <p class="kicker">الرسالة الأسبوعية</p>
-  <h2>العدد الأول قريبًا</h2>
-  <p>{{ .Site.Params.newsletter.pitch }}</p>
-</article>
-{{- end }}
-
-{{ partial "term/prompt" (dict "path" "C:\\OSAMA") }}
+  {{ with .Site.Params.homeImageCaption }}<figcaption>{{ . }}</figcaption>{{ end }}
+</figure>
 {{ end }}

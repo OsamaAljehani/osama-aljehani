@@ -1,24 +1,18 @@
 {{ define "main" }}
-{{- $path := partial "term/path" . -}}
-<p class="cmd" dir="ltr"><span class="prompt">{{ $path }}&gt;</span> <span class="typed">DIR</span></p>
-<pre class="dir-head" dir="ltr"> Directory of {{ $path }}
-</pre>
-<header class="dir-title">
+<header class="page-head">
   <h1>{{ .Title }}</h1>
   {{ with .Params.description }}<p>{{ . }}</p>{{ end }}
 </header>
-<ol class="listing" data-listing dir="ltr">
-  {{ partial "term/row" (dict "name" ".." "ext" "" "size" "<DIR>" "date" "" "label" "رجوع" "href" ("/" | relURL)) }}
-  {{- range .Pages }}
-    {{- if .IsPage }}
-      {{- $fn := split (partial "term/filename" .) "." -}}
-      {{ partial "term/row" (dict "name" (index $fn 0) "ext" (index $fn 1) "size" (lang.FormatNumberCustom 0 (len .RawContent)) "date" (partial "term/date" .) "label" .Title "href" .RelPermalink) }}
-    {{- else }}
-      {{ partial "term/row" (dict "name" (upper (substr (.Title | urlize) 0 8)) "ext" "" "size" "<DIR>" "date" "" "label" .Title "href" .RelPermalink) }}
-    {{- end }}
+{{- if .Pages }}
+<ol class="title-list">
+  {{- range .Pages.ByDate.Reverse }}
+  <li>
+    <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+    {{ partial "min/date" . }}
+  </li>
   {{- end }}
 </ol>
-<pre class="dir-foot" dir="ltr">        {{ len .Pages }} File(s)        640K bytes free</pre>
-{{- if not .Pages }}<p class="hint">لا توجد ملفات في هذا المجلد بعد.</p>{{ end }}
-{{ partial "term/prompt" (dict "path" $path) }}
+{{- else }}
+<p class="empty">لا توجد منشورات بعد.</p>
+{{- end }}
 {{ end }}

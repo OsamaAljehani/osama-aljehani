@@ -1,0 +1,8 @@
+<footer class="site-footer wrap">
+  <p>
+    © {{ now.Format "2006" }} {{ .Site.Title }}
+    {{- range .Site.Menus.social }} · <a href="{{ .URL }}" rel="me noopener" target="_blank">{{ .Name }}</a>{{ end }}
+    · <a href="{{ "index.xml" | relURL }}">RSS</a>
+  </p>
+  <p class="disclaimer">الآراء المنشورة في هذا الموقع شخصية ولا تمثل جهة العمل.</p>
+</footer>

@@ -1,0 +1,47 @@
+{{ define "main" }}
+{{- $cv := .Site.Data.cv -}}
+
+<header class="page-head">
+  <h1>{{ .Title }}</h1>
+</header>
+<div class="book" dir="ltr" lang="en">
+  {{- range $pi, $page := $cv.pages }}
+  <article class="book-page">
+    <p class="book-running-head">{{ $cv.name }}</p>
+    {{- if eq $pi 0 }}
+    <header class="book-titleblock">
+      <h2 class="book-title">{{ $cv.name }}</h2>
+      <p class="book-roles">{{ $cv.roles }}</p>
+      <p class="book-location">{{ $cv.location }}</p>
+    </header>
+    {{- end }}
+    {{- range $page.sections }}
+    <section class="book-section">
+      <h3>{{ .title }}</h3>
+      {{- with .text }}<p class="book-text">{{ . }}</p>{{ end }}
+      {{- with .tags }}<p class="book-tags">{{ delimit . " · " }}</p>{{ end }}
+      {{- range .jobs }}
+      <div class="book-job">
+        <p class="job-head"><strong>{{ .role }}</strong><span class="job-period">{{ .period }}</span></p>
+        <p class="job-org">{{ .org }}</p>
+        <ul>{{ range .bullets }}<li>{{ . }}</li>{{ end }}</ul>
+        {{ with .selected }}<p class="job-selected"><em>Selected assignments:</em> {{ . }}</p>{{ end }}
+      </div>
+      {{- end }}
+      {{- with .items }}
+      <ul class="book-items">
+        {{- range . }}
+        <li>{{ with .year }}<span class="book-year">{{ . }}</span>{{ end }}<span>{{ with .label }}<strong>{{ . }}</strong> — {{ end }}{{ .text }}</span></li>
+        {{- end }}
+      </ul>
+      {{- end }}
+    </section>
+    {{- end }}
+    <p class="book-folio">{{ add $pi 1 }}</p>
+  </article>
+  {{- end }}
+</div>
+{{- range where .Site.Menus.social "Identifier" "linkedin" }}
+<p class="cv-link"><a href="{{ .URL }}" rel="me noopener" target="_blank">حسابي على LinkedIn</a></p>
+{{- end }}
+{{ end }}

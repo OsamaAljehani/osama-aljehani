@@ -11,6 +11,10 @@ favicon = "favicon.ico"
 # disqus is a comment system. see https://disqus.com
 disqusShortname = ""
 
+bio = "صحفي ومراسل دولي في واشنطن، أكتب عن السياسة والاقتصاد."
+nameLatin = "OSAMA ALJEHANI"
+homeImage = "images/home.jpg"   # الصورة الرئيسية في منتصف الصفحة الرئيسية
+homeImageCaption = ""
 tagline = "واشنطن بعيون عربية: السياسة والاقتصاد"
 
 [newsletter]

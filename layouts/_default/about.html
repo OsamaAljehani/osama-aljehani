@@ -1,27 +1,13 @@
 {{ define "main" }}
-{{- $home := .Site.Home -}}
-<p class="cmd" dir="ltr"><span class="prompt">C:\OSAMA&gt;</span> <span class="typed">TYPE ABOUT.TXT</span></p>
-<article class="window">
-  <header class="win-title" dir="ltr">
-    <a class="win-close" href="{{ "/" | relURL }}" data-esc aria-label="إغلاق والرجوع">[■]</a>
-    <span>ABOUT.TXT</span>
-    <span class="win-size">{{ lang.FormatNumberCustom 0 (len .RawContent) }} bytes</span>
+<article class="article about">
+  <header class="article-head">
+    <h1>{{ .Title }}</h1>
   </header>
-  <div class="win-body about">
-    {{ with resources.Get .Site.Params.avatar }}{{ $p := .Fill "96x96" }}
-    <figure class="pixel-portrait"><img src="{{ $p.RelPermalink }}" alt="{{ $.Site.Title }}" width="160" height="160"></figure>
+  <div class="about-body">
+    {{ with resources.Get .Site.Params.avatar }}{{ $p := .Fill "320x320" }}
+    <img class="portrait" src="{{ $p.RelPermalink }}" alt="{{ $.Site.Title }}" width="140" height="140">
     {{ end }}
-    <div class="prose">
-      <h1>{{ .Title }}</h1>
-      <p class="deck">{{ $home.Params.introduction }}</p>
-      <h2>الخبرة المهنية</h2>
-      <p>{{ $home.Params.experience }}</p>
-      <h2>التعليم</h2>
-      <ul>{{ range $home.Params.education }}<li><strong>{{ .degree }}</strong>، {{ .institution }}</li>{{ end }}</ul>
-      {{ .Content }}
-    </div>
+    <div class="prose">{{ .Content }}</div>
   </div>
-  <footer class="win-foot"><p class="disclaimer">الآراء المنشورة في هذا الموقع شخصية ولا تمثل جهة العمل.</p></footer>
 </article>
-{{ partial "term/prompt" (dict "path" "C:\\OSAMA") }}
 {{ end }}

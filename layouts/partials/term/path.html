@@ -1,9 +1,0 @@
-{{- /* DOS-style path for the current page */ -}}
-{{- $p := "C:\\OSAMA" -}}
-{{- if .IsHome -}}
-{{- else if eq .Kind "section" -}}{{ $p = printf "%s\\%s" $p (upper .Section) }}
-{{- else if .IsPage -}}
-  {{- if .Section }}{{ $p = printf "%s\\%s\\%s" $p (upper .Section) (partial "term/filename" .) }}{{ else }}{{ $p = printf "%s\\%s" $p (partial "term/filename" .) }}{{ end -}}
-{{- else -}}{{ $p = printf "%s\\%s" $p (upper (.Title | urlize)) }}
-{{- end -}}
-{{- return $p -}}

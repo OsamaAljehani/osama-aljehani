@@ -1,19 +1,14 @@
 <!DOCTYPE html>
-<html lang="{{ .Site.LanguageCode | default `ar` }}" dir="rtl" data-phosphor="green">
+<html lang="{{ .Site.LanguageCode | default `ar` }}" dir="rtl">
   <head>
-    {{- partial "term/head" . -}}
+    {{- partial "min/head" . -}}
   </head>
-  {{- $cwd := "" }}{{ if and .Section (ne .Kind "home") (ne .Kind "taxonomy") (ne .Kind "term") }}{{ $cwd = upper .Section }}{{ end -}}
-  <body class="{{ if .IsHome }}is-home{{ end }}" data-cwd="{{ $cwd }}" data-up="{{ with .Parent }}{{ .RelPermalink }}{{ else }}{{ "/" | relURL }}{{ end }}">
-    <a class="skip-link" href="#screen">انتقل إلى المحتوى</a>
-    <div class="crt">
-      {{- partial "term/statusbar" . -}}
-      <main id="screen" class="screen" tabindex="-1">
-        {{- block "main" . -}}{{- end -}}
-      </main>
-      {{- partial "term/fkeys" . -}}
-    </div>
-    {{- partial "term/fs-index" . -}}
-    {{- if .IsHome }}{{ partial "term/boot" . }}{{ end -}}
+  <body{{ if .IsHome }} class="home"{{ end }}>
+    <a class="skip-link" href="#main">انتقل إلى المحتوى</a>
+    {{- partial "min/header" . -}}
+    <main id="main"{{ if not .IsHome }} class="wrap"{{ end }}>
+      {{- block "main" . -}}{{- end -}}
+    </main>
+    {{- if not .IsHome }}{{ partial "min/footer" . }}{{ end -}}
   </body>
 </html>
