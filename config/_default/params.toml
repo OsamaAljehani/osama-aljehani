@@ -11,10 +11,9 @@ favicon = "favicon.ico"
 # disqus is a comment system. see https://disqus.com
 disqusShortname = ""
 
-bio = "مراسل في واشنطن. أكتب عن السياسة والاقتصاد، وأصوّر بالأبيض والأسود."
 nameLatin = "OSAMA ALJEHANI"
-homeImage = "images/home.jpg"   # الصورة الرئيسية في منتصف الصفحة الرئيسية
-homeImageAlt = "منزل ذو شرفتين على ضفة الماء، تحيط به الأشجار وينعكس ظله على السطح."
+homeImage = "photos/28.jpg"   # الصورة الرئيسية في منتصف الصفحة الرئيسية
+homeImageAlt = "مبنى خشبي أبيض يمتد أمامه سياج أحمر، وخلفه أشجار كثيفة."
 homeImageCaption = ""
 tagline = "واشنطن بعيون عربية: السياسة والاقتصاد"
 

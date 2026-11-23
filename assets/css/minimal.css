@@ -5,7 +5,6 @@
   --rule: #e4e4e4;
   --rule-strong: #999;
   --accent: #0e5c3f;   /* single accent colour: change here */
-  --paper: #fbf8f1;
   --serif: "Noto Naskh Arabic", Georgia, "Times New Roman", serif;
   --book: "EB Garamond", Georgia, "Times New Roman", serif;
   --wrap: 760px;
@@ -35,7 +34,7 @@ a:hover { color: var(--accent); }
 .home {
   --edge: clamp(1.25rem, 4vw, 3.5rem);
   display: grid;
-  grid-template-columns: minmax(13rem, 17rem) minmax(0, 1fr);
+  grid-template-columns: minmax(15.5rem, .85fr) minmax(0, 1.75fr);
   gap: clamp(2rem, 5vw, 5rem);
   align-items: center;
   max-width: 85rem;
@@ -47,7 +46,8 @@ a:hover { color: var(--accent); }
 .home .site-header { display: grid; gap: 1.75rem; margin: 0; padding: 0; }
 .home-title { margin: 0; font: inherit; }
 .home .wm-ar { font-size: clamp(1.9rem, 3vw, 2.6rem); line-height: 1.5; }
-.home-bio { max-width: 22ch; margin: .8rem 0 0; color: var(--muted); line-height: 1.75; }
+.home-bio { max-width: 39ch; margin: .8rem 0 0; color: var(--muted); line-height: 1.75; }
+.home-bio p { margin: .6rem 0 0; }
 .home .site-nav { flex-direction: column; align-items: flex-start; gap: .35rem; font-size: 1.1rem; }
 .home main { min-width: 0; padding: 0; }
 .home-photo { display: grid; justify-items: center; margin: 0; }
@@ -60,6 +60,10 @@ a:hover { color: var(--accent); }
   max-height: calc(100vh - 2 * var(--edge));
   max-height: calc(100svh - 2 * var(--edge));
 }
+.home-latest { display: flex; align-items: baseline; flex-wrap: wrap; gap: 0 .85rem; margin-top: .8rem; padding-top: .5rem; border-top: 1px solid var(--rule); }
+.home-latest span { color: var(--muted); font-size: .9rem; }
+.home-latest a { font-weight: 600; }
+.home main:has(.home-latest) .home-photo img { max-height: calc(100svh - 2 * var(--edge) - 4rem); }
 .home-photo figcaption { margin-top: .6rem; font-size: .9rem; color: var(--muted); }
 .photo-placeholder { display: grid; place-items: center; width: min(100%, 900px); aspect-ratio: 3 / 2; background: #ececec; color: #888; font-size: 1rem; }
 
@@ -107,6 +111,10 @@ main { padding-block: .5rem 4rem; }
 .photo-view .site-header { width: 100%; }
 .photo-view main { display: flex; flex-direction: column; width: 100%; max-width: 66rem; padding-bottom: 1.5rem; }
 .photo-view .page-head { padding-block: .6rem .85rem; }
+.photo-view .camera-line { margin-top: .3rem; font-size: 1rem; }
+.gallery-notes { margin-block: 1.5rem 2.75rem; }
+.gallery-notes p { margin: 0; }
+.camera-line bdi { white-space: nowrap; }
 .gallery { display: flex; flex-direction: column; flex: 1; gap: .75rem; margin-top: .5rem; }
 .gallery-stage { position: relative; flex: 1; min-height: clamp(10.5rem, 32vw, 22rem); }
 .slide {
@@ -128,23 +136,13 @@ main { padding-block: .5rem 4rem; }
 .gallery-count { min-width: 3.5rem; color: var(--muted); text-align: center; font-variant-numeric: tabular-nums; }
 
 @media (orientation: landscape) and (max-height: 30rem) and (min-width: 35rem) {
+  .home { align-items: start; }
   .photo-view .site-header { padding-block: .5rem; }
   .photo-view main { display: grid; grid-template-columns: minmax(12rem, 2fr) minmax(0, 3fr); gap: 1.25rem; padding-bottom: .5rem; }
   .photo-view .page-head { align-self: start; border: 0; }
   .gallery { margin: 0; gap: .35rem; }
   .gallery-stage { min-height: 9rem; }
 }
-
-/* CV as a book page */
-.book-page { position: relative; max-width: 620px; margin: 2.5rem auto 1.5rem; padding: 3.5rem clamp(1.5rem, 6vw, 4rem) 4rem; background: var(--paper); border: 1px solid #e6dfcf; box-shadow: 0 1px 2px rgba(0,0,0,.06), 0 12px 30px rgba(0,0,0,.08); font-family: var(--book); }
-.book-page::before { content: ""; position: absolute; inset-block: 0; inset-inline-end: 0; width: 18px; background: linear-gradient(to left, rgba(0,0,0,.06), transparent); }
-.book-running-head { margin: 0 0 2rem; text-align: center; font-size: .9rem; color: var(--muted); letter-spacing: 0; }
-.book-title { margin: 0 0 1.25rem; text-align: center; font-size: 1.9rem; font-weight: 700; }
-.book-bio { margin: 0 0 1.5rem; font-size: 1.2rem; line-height: 2; text-align: justify; }
-.book-section h3 { margin: 1.75rem 0 .5rem; font-size: 1.2rem; font-weight: 700; padding-bottom: .3rem; border-bottom: 1px solid #e0d7c4; }
-.book-year { flex: none; min-width: 3.5rem; color: var(--muted); }
-.book-folio { position: absolute; bottom: 1.25rem; inset-inline: 0; margin: 0; text-align: center; font-size: .95rem; color: var(--muted); }
-.cv-link { text-align: center; font-size: 1.05rem; }
 
 /* About */
 .about-body { display: flex; gap: 1.75rem; align-items: flex-start; }
@@ -157,8 +155,12 @@ main { padding-block: .5rem 4rem; }
 
 @media (max-width: 48rem) and (orientation: portrait), (max-width: 34rem) {
   .home { display: flex; flex-direction: column; align-items: stretch; justify-content: flex-start; gap: 1.5rem; }
-  .home .site-header { gap: .75rem; }
-  .home-bio { max-width: 34ch; margin-top: .35rem; }
+  .home .site-header, .home .site-header > div { display: contents; }
+  .home .home-title { order: 0; }
+  .home .site-nav { order: 1; }
+  .home main { order: 2; }
+  .home .home-bio { order: 3; }
+  .home-bio { max-width: 54ch; margin-top: .35rem; }
   .home .site-nav { flex-direction: row; flex-wrap: wrap; gap: .15rem 1.25rem; font-size: 1rem; }
 }
 @media (max-width: 560px) {
@@ -169,39 +171,43 @@ main { padding-block: .5rem 4rem; }
   .about-body { flex-direction: column; }
   .title-list li { flex-direction: column; gap: .1rem; }
 }
-@media print { .site-nav, .site-footer, .gallery-controls { display: none; } .book-page { box-shadow: none; border: 0; } }
 
-/* CV book: details */
-.book { display: flex; flex-direction: column; gap: 2rem; margin-top: 2rem; }
-.book .book-page { margin: 0 auto; width: 100%; }
-.book-titleblock { text-align: center; margin-bottom: 1.75rem; padding-bottom: 1.25rem; border-bottom: 1px solid #e0d7c4; }
-.book-titleblock .book-title { margin-bottom: .4rem; }
-.book-roles { margin: 0; font-size: 1.05rem; }
-.book-location { margin: .2rem 0 0; font-size: .95rem; color: var(--muted); }
-.book-text { margin: 0; font-size: 1.12rem; line-height: 2; text-align: justify; }
-.book-tags { margin: 0; font-size: 1.02rem; line-height: 1.9; }
-.book-job { margin-bottom: 1.25rem; }
-.job-head { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 0 1rem; margin: 0; font-size: 1.12rem; }
-.job-period { color: var(--muted); font-size: .98rem; }
-.job-org { margin: 0 0 .3rem; color: var(--muted); font-size: 1rem; }
-.book-job ul { margin: 0; padding-inline-start: 1.2em; }
-.book-job li { font-size: 1.05rem; line-height: 1.85; margin-bottom: .2rem; }
-.job-selected { margin: .35rem 0 0; font-size: .98rem; line-height: 1.8; color: var(--muted); }
-.job-selected em { font-style: normal; font-weight: 700; color: var(--ink); }
-.book-items { list-style: none; margin: 0; padding: 0; }
-.book-items li { display: flex; gap: 1rem; padding-block: .3rem; font-size: 1.05rem; line-height: 1.85; }
-.book-section { margin-bottom: .5rem; }
-.book-year { unicode-bidi: isolate; }
-.book .book-page::before { inset-inline-end: auto; inset-inline-start: 0; background: linear-gradient(to right, rgba(0,0,0,.06), transparent); }
-.book .book-text { text-align: start; }
-.book .job-head, .book-items li { font-size: 1.08rem; }
-.book-title { letter-spacing: .02em; overflow-wrap: break-word; }
-.book .book-text, .book .book-tags, .book-job li, .book-items li, .job-selected { line-height: 1.6; }
-.book .book-text { font-size: 1.1rem; }
-.book-job li { margin-bottom: .35rem; }
-
-@media (max-width: 35rem) {
-  .book { margin-top: 1rem; }
-  .book-page { padding: 1.75rem 1.15rem 3.5rem; }
-  .book-items li:has(.book-year) { flex-direction: column; gap: 0; padding-block: .5rem; }
+/* English CV */
+.resume-wrap { max-width: 60rem; }
+.resume-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding-block: .75rem 1rem; }
+.resume-toolbar h1 { margin: 0; font-size: 1.35rem; }
+.resume-toolbar button { padding: .2rem .85rem; min-height: 44px; font: inherit; font-size: 1rem; background: white; border: 1px solid var(--rule-strong); color: var(--ink); cursor: pointer; }
+.resume-toolbar button:hover { border-color: var(--accent); color: var(--accent); }
+.resume { border-top: 3px solid var(--accent); font: 1.06rem/1.6 Georgia, "Times New Roman", serif; }
+.resume-head { padding-block: clamp(1.5rem, 4vw, 3rem); }
+.resume-head h2 { margin: 0; font: 600 clamp(2.15rem, 5.5vw, 3.8rem)/1.1 var(--book); }
+.resume-role { margin: .5rem 0 .2rem; font-size: 1.32rem; }
+.resume-meta, .resume-date, .resume-org { color: var(--muted); font-family: system-ui, sans-serif; font-size: .9rem; }
+.resume-meta { margin: 0; }
+.resume-profile { max-width: 65ch; margin: 1.25rem 0 0; }
+.resume-section { display: grid; grid-template-columns: minmax(8rem, 12rem) minmax(0, 1fr); gap: clamp(1rem, 3vw, 2.75rem); border-top: 1px solid var(--rule); padding-block: 1.6rem; }
+.resume-section h3 { margin: 0; font: 600 1.55rem/1.22 var(--book); color: var(--accent); }
+.resume-entries { list-style: none; padding: 0; margin: 0; }
+.resume-entries > li + li { margin-top: 1.1rem; }
+.resume-item-head { display: flex; justify-content: space-between; flex-wrap: wrap; align-items: baseline; gap: .15rem .75rem; }
+.resume-item-head h4 { margin: 0; font: 600 1rem/1.4 system-ui, sans-serif; }
+.resume-date { font-variant-numeric: tabular-nums; }
+.resume-entries p { margin: .25rem 0 0; }
+.resume-entries ul { margin: .4rem 0 0; padding-inline-start: 1.25rem; }
+.resume-entries ul li + li { margin-top: .25rem; }
+@media (max-width: 42rem) {
+  .resume-section { grid-template-columns: 1fr; gap: .8rem; padding-block: 1.25rem; }
+}
+@media print {
+  .site-nav, .site-footer, .gallery-controls, .resume-toolbar, body:has(.resume) .site-header, .skip-link { display: none; }
+  .resume-wrap { max-width: none; padding: 0; }
+  .resume { font-size: 10.5pt; line-height: 1.4; }
+  .resume-head { padding: .8rem 0; }
+  .resume-head h2 { font-size: 28pt; }
+  .resume-section { display: block; padding-block: .5rem; }
+  .resume-section h3 { font-size: 15pt; margin-bottom: .35rem; break-after: avoid; }
+  .resume-entries > li { break-inside: avoid; }
+  .resume-entries > li + li { margin-top: .45rem; }
+  .resume-item-head h4 { font-size: 10.5pt; }
+  .resume-profile { max-width: none; margin-top: .5rem; }
 }

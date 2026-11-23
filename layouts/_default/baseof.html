@@ -8,10 +8,11 @@
     {{- $gallery := eq .Layout "photography" -}}
     {{ if $gallery }}<div class="photo-view">{{ end }}
     {{- partial "min/header" . -}}
-    <main id="main"{{ if not .IsHome }} class="wrap"{{ end }}>
+    <main id="main"{{ if not .IsHome }} class="wrap{{ if eq .Layout "cv" }} resume-wrap{{ end }}"{{ end }}>
       {{- block "main" . -}}{{- end -}}
     </main>
     {{ if $gallery }}</div>{{ end }}
+    {{ block "afterMain" . }}{{ end }}
     {{- if not .IsHome }}{{ partial "min/footer" . }}{{ end -}}
   </body>
 </html>

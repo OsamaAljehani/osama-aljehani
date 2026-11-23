@@ -1,48 +1,40 @@
 {{ define "main" }}
 {{- $cv := .Site.Data.cv -}}
-
-<header class="page-head">
+<header class="resume-toolbar">
   <h1>{{ .Title }}</h1>
+  <button type="button" onclick="window.print()">طباعة السيرة</button>
 </header>
-<div class="book" dir="ltr" lang="en">
-  {{- range $pi, $page := $cv.pages }}
-  <article class="book-page">
-    {{- if eq $pi 0 }}
-    <header class="book-titleblock">
-      <h2 class="book-title">{{ $cv.name }}</h2>
-      <p class="book-roles">{{ $cv.roles }}</p>
-      <p class="book-location">{{ $cv.location }}</p>
-    </header>
-    {{- else }}
-    <p class="book-running-head">{{ $cv.name }}</p>
-    {{- end }}
-    {{- range $page.sections }}
-    <section class="book-section">
-      <h3>{{ .title }}</h3>
-      {{- with .text }}<p class="book-text">{{ . }}</p>{{ end }}
-      {{- with .tags }}<p class="book-tags">{{ delimit . " · " }}</p>{{ end }}
-      {{- range .jobs }}
-      <div class="book-job">
-        <p class="job-head"><strong>{{ .role }}</strong><span class="job-period">{{ .period }}</span></p>
-        <p class="job-org">{{ .org }}</p>
+<article class="resume" lang="en" dir="ltr" aria-labelledby="resume-name">
+  <header class="resume-head">
+    <h2 id="resume-name">{{ $cv.name }}</h2>
+    <p class="resume-role">{{ $cv.role }}</p>
+    <p class="resume-meta">{{ $cv.location }}{{ range where .Site.Menus.social "Identifier" "linkedin" }} · <a href="{{ .URL }}" rel="me">LinkedIn</a>{{ end }}</p>
+    <p class="resume-profile">{{ $cv.profile }}</p>
+  </header>
+  <section class="resume-section">
+    <h3>Experience</h3>
+    <ol class="resume-entries">
+      {{ range $cv.experience }}
+      <li>
+        <div class="resume-item-head"><h4>{{ .role }}</h4><span class="resume-date">{{ .period }}</span></div>
+        <p class="resume-org">{{ .org }} · {{ .place }}</p>
         <ul>{{ range .bullets }}<li>{{ . }}</li>{{ end }}</ul>
-        {{ with .selected }}<p class="job-selected"><em>Selected assignments:</em> {{ . }}</p>{{ end }}
-      </div>
-      {{- end }}
-      {{- with .items }}
-      <ul class="book-items">
-        {{- range . }}
-        <li>{{ with .year }}<span class="book-year">{{ . }}</span>{{ end }}<span>{{ with .label }}<strong>{{ . }}</strong> — {{ end }}{{ .text }}</span></li>
-        {{- end }}
-      </ul>
-      {{- end }}
-    </section>
-    {{- end }}
-    <p class="book-folio">{{ add $pi 1 }}</p>
-  </article>
-  {{- end }}
-</div>
-{{- range where .Site.Menus.social "Identifier" "linkedin" }}
-<p class="cv-link"><a href="{{ .URL }}" rel="me noopener" target="_blank">حسابي على LinkedIn</a></p>
-{{- end }}
+      </li>
+      {{ end }}
+    </ol>
+  </section>
+  {{ range $cv.sections }}
+  <section class="resume-section">
+    <h3>{{ .title }}</h3>
+    <ul class="resume-entries">
+      {{ range .items }}
+      <li>
+        <div class="resume-item-head"><h4>{{ .title }}</h4>{{ with .date }}<span class="resume-date">{{ . }}</span>{{ end }}</div>
+        <p>{{ .detail }}</p>
+      </li>
+      {{ end }}
+    </ul>
+  </section>
+  {{ end }}
+</article>
 {{ end }}

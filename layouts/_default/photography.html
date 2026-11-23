@@ -3,7 +3,7 @@
 {{- $captions := .Site.Data.photos | default dict -}}
 <header class="page-head">
   <h1>{{ .Title }}</h1>
-  {{ with .Params.intro }}<p>{{ . }}</p>{{ end }}
+  {{ with .Params.cameras }}<p class="camera-line">أصوّر بالألوان وبالأبيض والأسود بكاميرات {{ range $i, $camera := . }}{{ if $i }}، و{{ end }}<bdi dir="ltr" lang="en">{{ $camera }}</bdi>{{ end }}.</p>{{ end }}
 </header>
 <section class="gallery" data-gallery aria-roledescription="معرض صور" aria-label="الصور">
   <div class="gallery-stage">
@@ -32,4 +32,10 @@
 </section>
 {{- $js := resources.Get "js/gallery.js" | minify | fingerprint }}
 <script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" defer></script>
+{{ end }}
+
+{{ define "afterMain" }}
+{{ with .Params.intro }}
+<aside class="gallery-notes wrap" aria-label="عن المجموعة"><p>{{ . }}</p></aside>
+{{ end }}
 {{ end }}

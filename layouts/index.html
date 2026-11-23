@@ -10,4 +10,10 @@
   {{- end }}
   {{ with .Site.Params.homeImageCaption }}<figcaption>{{ . }}</figcaption>{{ end }}
 </figure>
+{{ range first 1 (where .Site.RegularPages "Section" "posts").ByDate.Reverse }}
+<aside class="home-latest" aria-label="أحدث الكتابات">
+  <span>أحدث الكتابات</span>
+  <a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
+</aside>
+{{ end }}
 {{ end }}

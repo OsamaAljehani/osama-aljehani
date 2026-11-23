@@ -5,7 +5,7 @@
       <span class="wm-ar">{{ .Site.Title }}</span>
       <span class="wm-en" dir="ltr" lang="en">{{ .Site.Params.nameLatin | default "OSAMA ALJEHANI" }}</span>
     </a>
-    {{ if .IsHome }}</h1><p class="home-bio">{{ .Site.Params.bio }}</p>{{ end }}
+    {{ if .IsHome }}</h1><div class="home-bio">{{ .Content }}</div>{{ end }}
   </div>
   <nav class="site-nav" aria-label="القائمة الرئيسية">
     {{ partial "min/menu" . }}
